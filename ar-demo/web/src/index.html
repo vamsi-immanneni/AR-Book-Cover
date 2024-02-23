@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <style>
+    #toggleButton {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #f00;
+      color: #fff;
+      border: none;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- AR.js Content -->
+  <a-scene embedded arjs>
+    <!-- Front Cover with Hiro Optional-->
+    <a-marker preset="hiro">
+      <!-- Front Cover Content -->
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/chess_piece_king.glb" scale="5 5 5" position="-1.5 0 0" rotation="270 0 0"></a-entity>
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/soldier.glb" scale="0.01 0.01 0.01" position="3.5 0 0" rotation="270 0 0"></a-entity>
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/book.glb" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+      <a-text value="The Art of War\n by Sun Tzu" position="0 2 0" align="center" color="#000000" width="10" rotation="270 0 0"></a-text>
+    </a-marker>
+    <!-- Marker for the Front Cover -->
+    <a-marker type="pattern" url="https://vamsi-immanneni.github.io/ARImages/pattern-Front.patt">
+      <!-- Front Cover Content -->
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/chess_piece_king.glb" scale="5 5 5" position="-1.5 0 0" rotation="270 0 0"></a-entity>
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/soldier.glb" scale="0.01 0.01 0.01" position="3.5 0 0" rotation="270 0 0"></a-entity>
+      <a-entity gltf-model="https://vamsi-immanneni.github.io/ARImages/book.glb" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+      <a-text value="The Art of War\n by Sun Tzu" position="0 2 0" align="center" color="#000000" width="10" rotation="270 0 0"></a-text>
+    </a-marker>
+
+    <!-- marker for Back Cover -->
+    <a-marker type="pattern" url="https://vamsi-immanneni.github.io/ARImages/pattern-barcode.patt">
+      <!-- Back Cover Info -->
+      <a-entity id="backCoverInfo" position="0 0.5 0" rotation="270 0 0">
+        <a-text value="The Art of War\nSun Tzu\nPages: 273\nPublished: 5th Century BC" color="black" align="center" width="4"></a-text>
+      </a-entity>
+      <!-- Back Cover Review -->
+      <a-entity id="backCoverReview" position="0 0.5 0" rotation="270 0 0" visible="false">
+        <a-text value="This is a groundbreaking book on military strategy that closely applies to normal life, business, and many more situations. Sun Tzu's teachings are simple yet dense and give hope and clarity to those that want to conquer life." color="black" align="center" width="4"></a-text>
+      </a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <!-- HTML Button -->
+  <button id="toggleButton">Toggle Review</button>
+
+  <script>
+    document.querySelector('#toggleButton').addEventListener('click', function () {
+      var bookInfo = document.querySelector('#backCoverInfo');
+      var bookReview = document.querySelector('#backCoverReview');
+      var isInfoVisible = bookInfo.getAttribute('visible');
+
+      // Toggle visibility
+      bookInfo.setAttribute('visible', !isInfoVisible);
+      bookReview.setAttribute('visible', isInfoVisible);
+    });
+  </script>
+</body>
+</html>
